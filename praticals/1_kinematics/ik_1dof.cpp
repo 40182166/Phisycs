@@ -35,14 +35,20 @@ static void Reach(int i, const vec3 &target, std::vector<Link> &const links) {
     // *********************************
     // Get the Angle between the two vectors
 
+	  float theta = acos(cosAngle);
 
     // Turn into a Quat with our axis
 
+	  dquat myQuat = glm::angleAxis(theta, vLinkAxis);
+
     // Multply our current Quat with it
 
-    // Pull out the angle component, set the link params
+	  dquat mult = myQuat * qCur;
 
-    // *********************************
+	  // Pull out the angle and axis components, set the link params
+
+	  links[i].m_axis = glm::axis(mult);
+	  links[i].m_angle = glm::angle(mult);
   }
 }
 

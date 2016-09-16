@@ -15,6 +15,7 @@ using namespace glm;
 int numLinks = 5;
 float linkLength = 2.0f; // Length of each link
 std::vector<Link> links;
+std::vector<Link> myList;
 vec3 target = vec3(6.0f, 4.0f, 0);
 
 void MoveTarget() {
@@ -58,6 +59,7 @@ void UpdateIK() {
   const float distance = length(vec3(links[links.size() - 1].m_end[3]) - target);
   if (distance < 0.5f) {
     MoveTarget();
+	myList = links;
   }
   // ik_1dof_Update(target, links, linkLength);
   ik_3dof_Update(target, links, linkLength);
@@ -65,13 +67,13 @@ void UpdateIK() {
 
 void RenderIK() {
   phys::DrawSphere(target, 0.2f, RED);
-  for (int i = 0; i < (int)links.size(); ++i) {
-    vec3 base = links[i].m_base[3];
-    vec3 end = links[i].m_end[3];
-    phys::DrawCube(links[i].m_base * glm::scale(mat4(1.0f), vec3(0.5f)), GREEN);
-    phys::DrawCube(links[i].m_end * glm::scale(mat4(1.0f), vec3(0.5f)), ORANGE);
+  for (int i = 0; i < (int)myList.size(); ++i) {
+    vec3 base = myList[i].m_base[3];
+    vec3 end = myList[i].m_end[3];
+    phys::DrawCube(myList[i].m_base * glm::scale(mat4(1.0f), vec3(0.5f)), GREEN);
+    phys::DrawCube(myList[i].m_end * glm::scale(mat4(1.0f), vec3(0.5f)), ORANGE);
     phys::DrawLine(base, end);
-    phys::DrawPlane(base, links[i].m_worldaxis, vec3(0.01f));
+    phys::DrawPlane(base, myList[i].m_worldaxis, vec3(0.01f));
   }
 }
 
