@@ -35,7 +35,7 @@ static void Reach(int i, const vec3 &target, std::vector<Link> &const links) {
     // *********************************
     // Get the Angle between the two vectors
 
-	  float theta = acos(cosAngle);
+	  auto theta = glm::angle(vLinkBaseToEndEffDirection, vLinkBaseToTargetDirection);
 
     // Turn into a Quat with our axis
 
