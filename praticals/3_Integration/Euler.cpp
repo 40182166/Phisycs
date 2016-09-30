@@ -8,12 +8,12 @@ static dvec3 gravity = dvec3(0, -10.0, 0);
 void UpdatePhysics_Euler(const double t, const double dt) {
   for (size_t i = 0; i < balls.size(); i++)
   {
-    // *********************************
-    // Apply Accleration to Velocity
-
-    // Apply Velocity to position
-
-    // *********************************
+	  // *********************************
+	  // Apply Accleration to Velocity
+	  balls[i].velocity += gravity * dt;
+	  // Apply Velocity to position
+	  balls[i].position += balls[i].velocity * dt;
+	  // *********************************
     
     //super simple bounce function
     if (balls[i].position.y <= 0.0f) {

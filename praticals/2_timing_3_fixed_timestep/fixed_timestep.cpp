@@ -8,7 +8,7 @@ using namespace std;
 using namespace graphics_framework;
 using namespace glm;
 
-#define physics_tick 1.0 / 60.0
+#define physics_tick 1.0 / 100.0
 #define fallheight 20.0
 
 struct sBall {
@@ -22,7 +22,7 @@ chrono::time_point<chrono::high_resolution_clock> tp_end;
 
 //use this function simulate render workload
 void doWork() {
-  // this_thread::sleep_for(std::chrono::milliseconds(rand()%50));
+  this_thread::sleep_for(std::chrono::milliseconds(rand()%1));
 }
 
 
@@ -53,12 +53,13 @@ bool update(double delta_time) {
       accumulator -= physics_tick;
       t += physics_tick;
 
-      // *********************************
-      // Apply Accleration to Velocity
+	  // *********************************
+	  // Apply Accleration to Velocity
+	  ball.velocity += gravity * delta_time;
+	  // Apply Velocity to position
+	  ball.position += ball.velocity * delta_time;
 
-      // Apply Velocity to position
-
-      // *********************************
+	  // *********************************
 
       if (ball.position.y <= 0.0f) {
         tp_end = chrono::high_resolution_clock::now();

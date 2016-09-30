@@ -14,7 +14,7 @@ chrono::time_point<chrono::high_resolution_clock> tp_end;
 
 //use this function simulate render workload
 void doWork() {
-  // this_thread::sleep_for(std::chrono::milliseconds(rand()%50));
+  //this_thread::sleep_for(std::chrono::milliseconds(rand()%1));
 }
 
 
@@ -32,7 +32,7 @@ bool update(double delta_time) {
     while (accumulator > physics_tick) {
       ticks++;
       //UpdatePhysics_Euler(t, physics_tick);
-      //UpdatePhysics_Verlet(t, physics_tick);
+      UpdatePhysics_Verlet(t, physics_tick);
       UpdatePhysics_rk4(t, physics_tick);
       accumulator -= physics_tick;
       t += physics_tick;
