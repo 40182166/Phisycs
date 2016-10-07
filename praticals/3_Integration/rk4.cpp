@@ -11,7 +11,8 @@ struct Derivative {
 
 dvec3 acceleration(const sBall &body, dvec3 x, dvec3 v, float t) {
   // we could be summing accelerations, or doing other cool things here
-  return dvec3(0, -10.0, 0);
+	dvec3 wind(0.5, 1.0, 0.5);
+  return dvec3(0, -24.7, 0) - wind;	//jupiter gravity
 }
 
 Derivative compute(const sBall &body, const double t, const double dt, const Derivative &d) {
@@ -23,7 +24,7 @@ Derivative compute(const sBall &body, const double t, const double dt, const Der
   output.dx = v;
   //what would the acceleration be at this point?
   // *********************************
-
+  output.dv = acceleration(body, x, v, t + dt);
   // *********************************
   return output;
 }
@@ -40,11 +41,8 @@ void UpdatePhysics_rk4(const double t, const double dt) {
 
     //compute the final derivitive
     // *********************************
-
-
-
-    //apply against dt and get final outputs
-
+	balls[i].position += (a.dx + 2.0 * b.dx + 2.0 * c.dx + d.dx) * dt / 6.0;
+	balls[i].velocity += (a.dv + 2.0 * b.dv + 2.0 * c.dv + d.dv) * dt / 6.0;
 
     // *********************************
 
