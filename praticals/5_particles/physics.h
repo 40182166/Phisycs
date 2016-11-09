@@ -15,6 +15,7 @@ public:
 
 private:
 };
+
 class cParticle : public cPhysics {
 public:
   cParticle();
